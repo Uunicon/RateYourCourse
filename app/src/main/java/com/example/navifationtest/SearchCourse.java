@@ -1,6 +1,8 @@
 package com.example.navifationtest;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -18,11 +20,14 @@ import com.bumptech.glide.Glide;
 
 public class SearchCourse extends AppCompatActivity {
 
+    private MyDBHelper mydbhelper;
+
     public static final String UNIVERSITY_NAME = " university_name";
     public static final String UNIVERSITY_IMAGE_ID = "university_image_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mydbhelper = new MyDBHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_course);
         Intent intent = getIntent();
@@ -49,16 +54,16 @@ public class SearchCourse extends AppCompatActivity {
         //-----------待插入数据库查询寻语句-------------
 
 
-        final EditText editText = findViewById(R.id.edit_Ucourse);
+        final EditText editText = findViewById(R.id.edit_Ucourse); //获取输入框
         FloatingActionButton floatingActionButton = findViewById(R.id.floatbutton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputText=editText.getText().toString();
-                //   数据库查询课程 查询字段inputText
-                if(inputText.equals(getCourse)){
+                String inputText=editText.getText().toString();//输入框内容
+                //queryItem();查询在 Course 表中是否有输入框中的课程
+                if(queryItem()){
                     Intent intent1 = new Intent(SearchCourse.this,CourseActivity.class);
-                    intent1.putExtra("course",getCourse);
+                    intent1.putExtra("course",inputText);
                     startActivity(intent1);
                 }
                 else{
@@ -69,6 +74,19 @@ public class SearchCourse extends AppCompatActivity {
 
     }//end on Create
 
+    private boolean queryItem(){
+        EditText courseinput = findViewById(R.id.edit_Ucourse);
+        String CourseName = courseinput.getText().toString();
+        SQLiteDatabase db = mydbhelper.getWritableDatabase();
+        Cursor cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
+        if(cur!=null && cur.getCount() >= 1){
+            cur.close();
+            return true;
+        }else{
+            cur.close();
+            return  false;
+        }
+    }
 
 
     @Override

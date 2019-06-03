@@ -27,7 +27,7 @@ public class ViewCommentActivity extends AppCompatActivity {
         this.setTitle(courseName);
 
         //--------课程评价-------------------------
-        initComment(courseName);
+        initComment();
         CommentAdapter commentAdapter = new CommentAdapter(ViewCommentActivity.this,R.layout.comment_item, commentsList);
         ListView CommentlistView = findViewById(R.id.comment_list);
         CommentlistView.setAdapter(commentAdapter);
@@ -44,18 +44,9 @@ public class ViewCommentActivity extends AppCompatActivity {
         });
     }
 
-    private void initComment(String courseName){
-        int commentNumber=0;
+    private void initComment(){
 //        数据库查询语句
-//         1、首先查询出该课程courseName 共有多少条评论 返回该评论数 复制给 commentNumber
-//       commentNumber = 数据库查询语句
-//      2、查出当前课程所有评论 使用for循环进行 列表显示
-//        for(int i=0;i<commentNumber;i++)
-//        {
-//            //查询出的评论放入 CommentString
-//            Comments addcomment = new Comments(CommentString,R.drawable.post1);
-//            commentsList.add(addcomment);
-//        }
+//      查出当前课程所有评论 及其数量
         Comments p1 = new Comments("课程很满意，老师给分好",R.drawable.post1);
         commentsList.add(p1);
         Comments p2 = new Comments("难度很大，挂科了",R.drawable.post3);

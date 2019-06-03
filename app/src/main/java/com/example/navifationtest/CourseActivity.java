@@ -1,6 +1,8 @@
 package com.example.navifationtest;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +23,7 @@ import java.util.List;
 
 public class CourseActivity extends AppCompatActivity {
 
+    private MyDBHelper mydbhelper;
     private String[] RateIndex={"总分","课程知识容量","课程趣味性","课后作业强度","同学课堂互动","成绩给分情况"};
 
     private List<CourseRate> crourseRatelist= new ArrayList<>();
@@ -28,6 +31,7 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mydbhelper = new MyDBHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Intent intent = getIntent();
@@ -35,9 +39,7 @@ public class CourseActivity extends AppCompatActivity {
         this.setTitle(courseName);
 
         //--------------课程评分部分---------
-        // ------20190603----------函数有更改 加了传递参数 传入参数为 该课程名称
-        initCourseRate(courseName);
-        //-----------------------
+        initCourseRate();
         CRAdapter adapter = new CRAdapter(CourseActivity.this,
                 R.layout.rate_item, crourseRatelist);
         ListView listView = findViewById(R.id.rate_list);
@@ -86,34 +88,44 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
-    //传入变量为 课程名称
-    private void initCourseRate(String courseName){
-        //数据库搜索是否存在该课程
-        //if( true)  课程评分存在  显示下列内容
-        //{
-        //数据库返回 个维度分值
-            CourseRate total = new CourseRate("总分","9");
-            crourseRatelist.add(total);
-            CourseRate content = new CourseRate("课程知识容量","9");
-            crourseRatelist.add(content);
-            CourseRate interest = new CourseRate("课程趣味性","9");
-            crourseRatelist.add(interest);
-            CourseRate homework = new CourseRate("课后作业强度","9");
-            crourseRatelist.add(homework);
-            CourseRate interact = new CourseRate("同学互动情况","9");
-            crourseRatelist.add(interact);
-            CourseRate grade = new CourseRate("成绩给分情况","9");
-            crourseRatelist.add(grade);
-        //}
-        //else  课程暂无评分
-//        {
-//            CourseRate total = new CourseRate("总分","0");
-//            crourseRatelist.add(total);
-//            Toast.makeText(SearchCourse.this,"该课程暂无评分",Toast.LENGTH_SHORT).show();
-//        }
+    //查询相应课程的各项评分
+    private float[] queryItem(){
+        String CourseName = getIntent().getStringExtra("course");
+        SQLiteDatabase db = mydbhelper.getWritableDatabase();
+        Cursor cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
+        cur.moveToFirst();
+        int CourseID = cur.getInt(cur.getColumnIndex("CourseID"));//通过课程名称获取课程ID
+        //Toast.makeText(this, "CourseID: "+ CourseID, Toast.LENGTH_SHORT).show();
 
+        Cursor _cur = db.query("Course",null,"CourseID=?",new String[]{CourseID + ""},null,null,null);
+        _cur.moveToFirst();
+        float [] RateOptions = new float[5];
+        RateOptions[0] = _cur.getFloat(_cur.getColumnIndex("RateKnowlCap"));//通过课程ID获取课程各项评分
+        RateOptions[1] = _cur.getFloat(_cur.getColumnIndex("RateEnjoy"));
+        RateOptions[2] = _cur.getFloat(_cur.getColumnIndex("RateHomework"));
+        RateOptions[3] = _cur.getFloat(_cur.getColumnIndex("RateInteract"));
+        RateOptions[4] = _cur.getFloat(_cur.getColumnIndex("RateScore"));
+        cur.close();
+        _cur.close();
+        return RateOptions;
     }
 
+
+    private void initCourseRate(){
+        float [] RateOptions = queryItem();
+        CourseRate total = new CourseRate("总分",(RateOptions[0] + RateOptions[1] + RateOptions[2] + RateOptions[3] + RateOptions[4])/5 + "");
+        crourseRatelist.add(total);
+        CourseRate content = new CourseRate("课程知识容量",RateOptions[0] + "");
+        crourseRatelist.add(content);
+        CourseRate interest = new CourseRate("课程趣味性",RateOptions[1] + "");
+        crourseRatelist.add(interest);
+        CourseRate homework = new CourseRate("课后作业强度",RateOptions[2] + "");
+        crourseRatelist.add(homework);
+        CourseRate interact = new CourseRate("同学互动情况",RateOptions[3] + "");
+        crourseRatelist.add(interact);
+        CourseRate grade = new CourseRate("成绩给分情况",RateOptions[4] + "");
+        crourseRatelist.add(grade);
+    }
 
 }
 
