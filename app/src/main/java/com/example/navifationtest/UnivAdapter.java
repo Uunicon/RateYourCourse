@@ -46,6 +46,7 @@ public class UnivAdapter extends RecyclerView.Adapter <UnivAdapter.ViewHolder>{
             public void onClick(View v){
 
                 int position = holder.getAdapterPosition();
+
                 position=position+1;
                 University university = mUniversityList.get(position);
                 Intent intent = new Intent(mContext, SearchCourse.class);

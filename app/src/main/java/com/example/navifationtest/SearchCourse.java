@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,7 +68,14 @@ public class SearchCourse extends AppCompatActivity {
                     startActivity(intent1);
                 }
                 else{
-                    Toast.makeText(SearchCourse.this,"未找到该课程",Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v,"未找到该课程，点击右侧添加课程",Snackbar.LENGTH_LONG).setAction("添加课程",
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(SearchCourse.this,"未找到该课程",Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                    .show();
                 }
             }
         });
