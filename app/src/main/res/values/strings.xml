@@ -105,4 +105,5 @@
     </string>
     <string name="title_activity_view_comment">ViewCommentActivity</string>
     <string name="title_activity_add_comment">AddCommentActivity</string>
+    <string name="title_activity_add_course">AddCourseActivity</string>
 </resources>
