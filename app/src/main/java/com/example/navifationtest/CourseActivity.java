@@ -89,7 +89,7 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
-    //查询相应课程的各项评分
+    //----------查询相应课程的各项评分----------
     private float[] queryItem(){
         String CourseName = getIntent().getStringExtra("course");
         SQLiteDatabase db = mydbhelper.getWritableDatabase();

@@ -54,7 +54,9 @@ public class AddCommentActivity extends AppCompatActivity {
                 insertItem();
                 Snackbar.make(view, "提交评价成功", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
+                Intent intent1 = new Intent(AddCommentActivity.this,CourseActivity.class);
+                intent1.putExtra("course",courseName);
+                startActivity(intent1);
                 finish();
             }
         });
