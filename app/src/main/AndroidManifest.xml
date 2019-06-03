@@ -12,14 +12,12 @@
         <activity
             android:name=".AddCourseActivity"
             android:label="添加课程"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ProfessorActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
         <activity
             android:name=".AddCommentActivity"
             android:label="课程评价界面"

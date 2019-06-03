@@ -68,14 +68,19 @@ public class SearchCourse extends AppCompatActivity {
                     startActivity(intent1);
                 }
                 else{
-                    Snackbar.make(v,"未找到该课程，点击右侧添加课程",Snackbar.LENGTH_LONG).setAction("添加课程",
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Toast.makeText(SearchCourse.this,"未找到该课程",Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                    .show();
+                    if(inputText.isEmpty()){
+                        Toast.makeText(SearchCourse.this,"请输入课程名称",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Snackbar.make(v,"未找到该课程，点击右侧添加课程",Snackbar.LENGTH_LONG).setAction("添加课程",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent addcourseintent = new Intent(SearchCourse.this,AddCourseActivity.class);
+                                        startActivity(addcourseintent);                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         });
