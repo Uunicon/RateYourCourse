@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class CourseActivity extends AppCompatActivity {
@@ -113,17 +114,17 @@ public class CourseActivity extends AppCompatActivity {
 
     private void initCourseRate(){
         float [] RateOptions = queryItem();
-        CourseRate total = new CourseRate("总分",(RateOptions[0] + RateOptions[1] + RateOptions[2] + RateOptions[3] + RateOptions[4])/5 + "");
+        CourseRate total = new CourseRate("总分",String.format(Locale.US,"%.2f",(RateOptions[0] + RateOptions[1] + RateOptions[2] + RateOptions[3] + RateOptions[4])/5));
         crourseRatelist.add(total);
-        CourseRate content = new CourseRate("课程知识容量",RateOptions[0] + "");
+        CourseRate content = new CourseRate("课程知识容量",String.format(Locale.US,"%.2f",RateOptions[0]));
         crourseRatelist.add(content);
-        CourseRate interest = new CourseRate("课程趣味性",RateOptions[1] + "");
+        CourseRate interest = new CourseRate("课程趣味性",String.format(Locale.US,"%.2f",RateOptions[0]));
         crourseRatelist.add(interest);
-        CourseRate homework = new CourseRate("课后作业强度",RateOptions[2] + "");
+        CourseRate homework = new CourseRate("课后作业强度",String.format(Locale.US,"%.2f",RateOptions[0]));
         crourseRatelist.add(homework);
-        CourseRate interact = new CourseRate("同学互动情况",RateOptions[3] + "");
+        CourseRate interact = new CourseRate("同学互动情况",String.format(Locale.US,"%.2f",RateOptions[0]));
         crourseRatelist.add(interact);
-        CourseRate grade = new CourseRate("成绩给分情况",RateOptions[4] + "");
+        CourseRate grade = new CourseRate("成绩给分情况",String.format(Locale.US,"%.2f",RateOptions[0]));
         crourseRatelist.add(grade);
     }
 
