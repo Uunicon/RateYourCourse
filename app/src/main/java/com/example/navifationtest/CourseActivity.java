@@ -115,7 +115,7 @@ public class CourseActivity extends AppCompatActivity {
         float [] RateOptions = queryItem();
         CourseRate total = new CourseRate("总分",(RateOptions[0] + RateOptions[1] + RateOptions[2] + RateOptions[3] + RateOptions[4])/5 + "");
         crourseRatelist.add(total);
-        CourseRate content = new CourseRate("课程知识容量",String.format("%.2f",RateOptions[0]));
+        CourseRate content = new CourseRate("课程知识容量",RateOptions[0] + "");
         crourseRatelist.add(content);
         CourseRate interest = new CourseRate("课程趣味性",RateOptions[1] + "");
         crourseRatelist.add(interest);
