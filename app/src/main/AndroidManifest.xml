@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.navifationtest">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="RateYourCourse"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ProfessorActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            ></activity>
+        <activity
+            android:name=".AddCommentActivity"
+            android:label="课程评价界面"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewCommentActivity"
+            android:label="@string/title_activity_view_comment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CourseActivity"
+            android:label="@string/title_activity_course"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SearchCourse" />
+        <activity
+            android:name=".MainActivity"
+            android:label="RateYourCourse"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
