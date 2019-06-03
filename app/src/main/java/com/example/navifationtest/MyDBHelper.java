@@ -15,7 +15,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
             " TestID INTEGER PRIMARY KEY AUTOINCREMENT," +
             " TestName TEXT NOT NULL" +
             " )";
-    static final String CREAT_TABLE_RATE = "create table if not exists Rate(RateID int primary key not null,RateKnowlCap real not null,RateEnjoy real not null,RateHomeword real not null,RateInteract real not null,RateScore real not null,RateComment text not null,CourseID int not null,StudentID int not null);";
+    static final String CREATE_TABLE_RATE = "create table if not exists Rate(RateID int primary key not null,RateKnowlCap real not null,RateEnjoy real not null,RateHomeword real not null,RateInteract real not null,RateScore real not null,RateComment text not null,CourseID int not null,StudentID int not null);";
 
     static final String CREATE_TABLE_COURSE = "create table if not exists Course(CourseID int primary key not null,CourseName char(50) not null,RateKnowlCap real not null,RateEnjoy real not null,RateHomeword real not null,RateInteract real not null,RateScore real not null,SchoolID);";
 
@@ -30,7 +30,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_TEST);
         db.execSQL(CREATE_TABLE_COURSE);
-        db.execSQL(CREAT_TABLE_RATE);
+        db.execSQL(CREATE_TABLE_RATE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
