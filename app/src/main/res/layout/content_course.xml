@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CourseActivity" android:fillViewport="true"
+    tools:showIn="@layout/activity_course">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+        <ListView
+            android:id="@+id/rate_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            />
+        <TextView
+            android:id="@+id/commentInRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_marginTop="10dip"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 评 论 " />
+
+        <TextView
+            android:id="@+id/teacherInRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_marginTop="10dip"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 授课教师 " />
+
+        <!--<ListView-->
+            <!--android:id="@+id/comment_list"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/text_margin"-->
+            <!--android:layout_marginRight="@dimen/text_margin"-->
+            <!--android:layout_marginBottom="@dimen/text_margin"/>-->
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <TextView
+            android:id="@+id/knowledge_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 课程知识容量 " />
+
+        <EditText
+            android:id="@+id/knowledgePoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="0~10"/>
+
+        <TextView
+            android:id="@+id/interst_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 课程趣味性 " />
+
+        <EditText
+            android:id="@+id/interstPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="0~10"/>
+
+        <TextView
+            android:id="@+id/homework_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 课后作业强度 " />
+
+        <EditText
+            android:id="@+id/homeworkPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="0~10"/>
+
+        <TextView
+        android:id="@+id/interact_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/text_margin"
+        android:gravity="center_vertical"
+        android:text=" 同学互动情况 " />
+
+        <EditText
+            android:id="@+id/interactPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="0~10"/>
+
+        <TextView
+            android:id="@+id/grade_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 成绩给分情况 " />
+
+        <EditText
+            android:id="@+id/gradePoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="0~10"/>
+
+        <TextView
+            android:id="@+id/commentInAddtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:text=" 评论 " />
+
+        <EditText
+            android:id="@+id/commentContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="请输入对该课程的评论"/>
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
