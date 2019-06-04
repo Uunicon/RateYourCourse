@@ -118,13 +118,13 @@ public class CourseActivity extends AppCompatActivity {
         crourseRatelist.add(total);
         CourseRate content = new CourseRate("课程知识容量",String.format(Locale.US,"%.2f",RateOptions[0]));
         crourseRatelist.add(content);
-        CourseRate interest = new CourseRate("课程趣味性",String.format(Locale.US,"%.2f",RateOptions[0]));
+        CourseRate interest = new CourseRate("课程趣味性",String.format(Locale.US,"%.2f",RateOptions[1]));
         crourseRatelist.add(interest);
-        CourseRate homework = new CourseRate("课后作业强度",String.format(Locale.US,"%.2f",RateOptions[0]));
+        CourseRate homework = new CourseRate("课后作业强度",String.format(Locale.US,"%.2f",RateOptions[2]));
         crourseRatelist.add(homework);
-        CourseRate interact = new CourseRate("同学互动情况",String.format(Locale.US,"%.2f",RateOptions[0]));
+        CourseRate interact = new CourseRate("同学互动情况",String.format(Locale.US,"%.2f",RateOptions[3]));
         crourseRatelist.add(interact);
-        CourseRate grade = new CourseRate("成绩给分情况",String.format(Locale.US,"%.2f",RateOptions[0]));
+        CourseRate grade = new CourseRate("成绩给分情况",String.format(Locale.US,"%.2f",RateOptions[4]));
         crourseRatelist.add(grade);
     }
 

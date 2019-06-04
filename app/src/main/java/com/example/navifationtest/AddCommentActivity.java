@@ -62,6 +62,7 @@ public class AddCommentActivity extends AppCompatActivity {
         });
     }
 
+    //--------------数据库数据Rate表插入，Course表更新
     private void insertItem(){
         String CourseName = getIntent().getStringExtra("course");//课程名字
         int StudentID = 1001;//并不知道学生ID，备用
@@ -95,8 +96,9 @@ public class AddCommentActivity extends AppCompatActivity {
         //-----------查询Rate表获取Rate ID属性， 从而得到新插入的评价页面的RateID------
         //Cursor _cur = db.query("Rate",null,"CourseID=?",new String[]{CourseID},null,null,null);
         Cursor _cur = db.query("Rate",null,null,null,null,null,null);
-        int RateID = 1001;
+        int RateID = 1001;//无评价时自动使用默认Rate ID
         if(_cur.moveToLast()) {
+            //获取最大Rate ID
             RateID = _cur.getInt(_cur.getColumnIndex("RateID"));
             RateID = RateID + 1;
         }
