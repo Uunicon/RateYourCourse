@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,32 +52,92 @@ public class ViewCommentActivity extends AppCompatActivity {
 
     private void initComment(String CourseName){
 //        数据库查询语句
-
- //       queryRateComment(CourseName);
+        //------评论内容数组------
+        String[] RateComment =  queryRateComment(CourseName);
+        //-------评论数目------
+        int RateCnt = IsRateCommentEmpty(CourseName);
+        if(RateCnt==0){
+            //--------该课程评论为空时操作--------
+            Comments p1 = new Comments("以下为内置评论",R.drawable.post1);
+            commentsList.add(p1);
+            Comments p2 = new Comments("作业多，老师讲的快",R.drawable.post3);
+            commentsList.add(p2);
+            Comments p3 = new Comments("作业多，老师讲的快",R.drawable.post2);
+            commentsList.add(p3);
+            Comments p4 = new Comments("作业多，老师讲的快",R.drawable.post4);
+            commentsList.add(p4);
+            Comments p5 = new Comments("只要努力，老师给分不差",R.drawable.post5);
+            commentsList.add(p5);
+        }else{
+            //------通过评论数Rate进行评论页面布局
+            Comments p1 = new Comments("以下为数据库评论（仅显示一条）",R.drawable.post1);
+            commentsList.add(p1);
+            Comments p2 = new Comments(RateComment[0],R.drawable.post3);
+            commentsList.add(p2);
+            Comments p3 = new Comments("作业多，老师讲的快",R.drawable.post2);
+            commentsList.add(p3);
+            Comments p4 = new Comments("作业多，老师讲的快",R.drawable.post4);
+            commentsList.add(p4);
+            Comments p5 = new Comments("只要努力，老师给分不差",R.drawable.post5);
+            commentsList.add(p5);
+        }
 //      查出当前课程所有评论 及其数量
-        Comments p1 = new Comments("课程很满意，老师给分好",R.drawable.post1);
-        commentsList.add(p1);
-        Comments p2 = new Comments("难度很大，挂科了",R.drawable.post3);
-        commentsList.add(p2);
-        Comments p3 = new Comments("大佬多压力大",R.drawable.post2);
-        commentsList.add(p3);
-        Comments p4 = new Comments("作业多，老师讲的快",R.drawable.post4);
-        commentsList.add(p4);
-        Comments p5 = new Comments("只要努力，老师给分不差",R.drawable.post5);
-        commentsList.add(p5);
     }
 
-    //---------数据库Rate表评论查询
-    private void queryRateComment(String CourseName){
+    //-------判断该课程是否有评论，是则返回0，否则评论数-------
+    private int IsRateCommentEmpty(String CourseName){
         SQLiteDatabase db = mydbhelper.getWritableDatabase();
         //-------通过CourseName查找CourseID-----------
-        Cursor cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
-        cur.moveToFirst();
-        int CourseID = cur.getInt(cur.getColumnIndex("CourseID"));
-        cur.close();
-        //-------通过Course ID得到该课程的所有评分信息---------
-        Cursor Course_cur = db.query("Rate",null,"CourseID=?",new String[]{CourseID + ""},null,null,null);
-
+        Cursor Course_cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
+        Course_cur.moveToFirst();
+        int CourseID = Course_cur.getInt(Course_cur.getColumnIndex("CourseID"));
         Course_cur.close();
+        //-------通过Course ID得到该课程的所有评分信息---------
+        Cursor Rate_cur = db.query("Rate",null,"CourseID=?",new String[]{CourseID + ""},null,null,null);
+        int RowCnt  = 0;
+        if(Rate_cur.moveToFirst()) {
+            do {
+                RowCnt++;
+            } while (Rate_cur.moveToNext());
+        }
+        Rate_cur.close();
+        if(RowCnt == 0){
+            return 0;
+        }else{
+            return RowCnt;
+        }
+    }
+
+    //---------数据库Rate表评论查询---------
+    private String[] queryRateComment(String CourseName){
+        SQLiteDatabase db = mydbhelper.getWritableDatabase();
+        //-------通过CourseName查找CourseID-----------
+        Cursor Course_cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
+        Course_cur.moveToFirst();
+        int CourseID = Course_cur.getInt(Course_cur.getColumnIndex("CourseID"));
+        Course_cur.close();
+        //-------通过Course ID得到该课程的所有评分信息---------
+        Cursor Rate_cur = db.query("Rate",null,"CourseID=?",new String[]{CourseID + ""},null,null,null);
+        //------获取评论数目------
+        int RowCnt = 0;
+        if(Rate_cur.moveToFirst()) {
+            do {
+                RowCnt++;
+            } while (Rate_cur.moveToNext());
+        }
+
+        String [] RateComment = new String[RowCnt];
+
+        //------获取评论内容--------
+        int Cnt = 0;
+        if(Rate_cur.moveToFirst()) {
+            do {
+                RateComment[Cnt] = Rate_cur.getString(Rate_cur.getColumnIndex("RateComment"));
+                Cnt++;
+            } while (Rate_cur.moveToNext());
+        }
+        Toast.makeText(this, "评论数: "+ Cnt, Toast.LENGTH_SHORT).show();
+        Rate_cur.close();
+        return RateComment;
     }
 }
