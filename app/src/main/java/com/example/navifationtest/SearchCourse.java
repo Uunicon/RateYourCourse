@@ -50,26 +50,27 @@ public class SearchCourse extends AppCompatActivity {
 
 
         //-----------待插入数据库查询寻语句-------------
-        final String getCourse="math";
+         String getCourse="math";
 
         //-----------待插入数据库查询寻语句-------------
 
 
-        final EditText editText = findViewById(R.id.edit_Ucourse); //获取输入框
+
         FloatingActionButton floatingActionButton = findViewById(R.id.floatbutton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText editText = findViewById(R.id.edit_Ucourse); //获取输入框
                 String inputText=editText.getText().toString();//输入框内容
                 //queryItem();查询在 Course 表中是否有输入框中的课程
-                if(queryItem()){
-                    Intent intent1 = new Intent(SearchCourse.this,CourseActivity.class);
-                    intent1.putExtra("course",inputText);
-                    startActivity(intent1);
+                if(inputText.isEmpty()){
+                    Toast.makeText(SearchCourse.this,"请输入课程名称",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    if(inputText.isEmpty()){
-                        Toast.makeText(SearchCourse.this,"请输入课程名称",Toast.LENGTH_SHORT).show();
+                    if(queryItem(inputText)){
+                        Intent intent1 = new Intent(SearchCourse.this,CourseActivity.class);
+                        intent1.putExtra("course",inputText);
+                        startActivity(intent1);
                     }
                     else{
                         Snackbar.make(v,"未找到该课程，点击右侧添加课程",Snackbar.LENGTH_LONG).setAction("添加课程",
@@ -87,11 +88,11 @@ public class SearchCourse extends AppCompatActivity {
 
     }//end on Create
 
-    private boolean queryItem(){
-        EditText courseinput = findViewById(R.id.edit_Ucourse);
-        String CourseName = courseinput.getText().toString();
+    private boolean queryItem(String courseName){
+//        EditText courseinput = findViewById(R.id.edit_Ucourse);
+//        String CourseName = courseinput.getText().toString();
         SQLiteDatabase db = mydbhelper.getWritableDatabase();
-        Cursor cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
+        Cursor cur = db.query("Course",null,"CourseName=?",new String[]{courseName},null,null,null);
         if(cur!=null && cur.getCount() >= 1){
             cur.close();
             return true;
