@@ -32,7 +32,9 @@ public class SearchCourse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_course);
         Intent intent = getIntent();
-        String universityName= intent.getStringExtra(UNIVERSITY_NAME);
+
+        final String universityName= intent.getStringExtra(UNIVERSITY_NAME);
+
         int universityImageId = intent.getIntExtra(UNIVERSITY_IMAGE_ID,0);
         Toolbar toolbar = findViewById(R.id.toolbar);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
@@ -78,6 +80,7 @@ public class SearchCourse extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Intent addcourseintent = new Intent(SearchCourse.this,AddCourseActivity.class);
+                                        addcourseintent.putExtra("schoolName",universityName);
                                         startActivity(addcourseintent);                                    }
                                 })
                                 .show();

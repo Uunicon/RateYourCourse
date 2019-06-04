@@ -58,28 +58,37 @@ public class ViewCommentActivity extends AppCompatActivity {
         int RateCnt = IsRateCommentEmpty(CourseName);
         if(RateCnt==0){
             //--------该课程评论为空时操作--------
-            Comments p1 = new Comments("以下为内置评论",R.drawable.post1);
+            Comments p1 = new Comments("该课程暂无评论",R.drawable.post1);
             commentsList.add(p1);
-            Comments p2 = new Comments("作业多，老师讲的快",R.drawable.post3);
-            commentsList.add(p2);
-            Comments p3 = new Comments("作业多，老师讲的快",R.drawable.post2);
-            commentsList.add(p3);
-            Comments p4 = new Comments("作业多，老师讲的快",R.drawable.post4);
-            commentsList.add(p4);
-            Comments p5 = new Comments("只要努力，老师给分不差",R.drawable.post5);
-            commentsList.add(p5);
-        }else{
+        }
+        else{
             //------通过评论数Rate进行评论页面布局
-            Comments p1 = new Comments("以下为数据库评论（仅显示一条）",R.drawable.post1);
-            commentsList.add(p1);
-            Comments p2 = new Comments(RateComment[0],R.drawable.post3);
-            commentsList.add(p2);
-            Comments p3 = new Comments("作业多，老师讲的快",R.drawable.post2);
-            commentsList.add(p3);
-            Comments p4 = new Comments("作业多，老师讲的快",R.drawable.post4);
-            commentsList.add(p4);
-            Comments p5 = new Comments("只要努力，老师给分不差",R.drawable.post5);
-            commentsList.add(p5);
+            for(int i=0;i<RateCnt;i++){
+                int type = (i+1)%5;
+                switch (type){
+                    case 1:
+                        Comments p1 = new Comments(RateComment[i],R.drawable.post1);
+                        commentsList.add(p1);
+                        break;
+                    case 2:
+                        Comments p2 = new Comments(RateComment[i],R.drawable.post2);
+                        commentsList.add(p2);
+                        break;
+                    case 3:
+                        Comments p3 = new Comments(RateComment[i],R.drawable.post3);
+                        commentsList.add(p3);
+                        break;
+                    case 4:
+                        Comments p4 = new Comments(RateComment[i],R.drawable.post4);
+                        commentsList.add(p4);
+                        break;
+                    case 5:
+                        Comments p5 = new Comments(RateComment[i],R.drawable.post5);
+                        commentsList.add(p5);
+                        break;
+                }
+
+            }
         }
 //      查出当前课程所有评论 及其数量
     }

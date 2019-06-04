@@ -1,5 +1,6 @@
 package com.example.navifationtest;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,10 +22,13 @@ public class AddCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_course);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        final String schoolName = intent.getStringExtra("schoolName");
 
         //----------学校-----------
-        final EditText editTextSchool = findViewById(R.id.addschoolname);
 
+        final EditText editTextSchool = findViewById(R.id.addschoolname);
+        editTextSchool.setText(schoolName);
         //----------课程-----------
         final EditText editTextCourse = findViewById(R.id.addcoursename);
 
@@ -48,8 +52,10 @@ public class AddCourseActivity extends AppCompatActivity {
                     }
                     else{
                         insertCourse(addcoursename,addschoolname);
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        Intent intent1 = new Intent(AddCourseActivity.this,CourseActivity.class);
+                        intent1.putExtra("course",addcoursename);
+                        startActivity(intent1);
+                        finish();
                     }
                 }
             }
@@ -97,8 +103,8 @@ public class AddCourseActivity extends AppCompatActivity {
 
         //-------通过获取的信息进行Course表插入操作-------
         String str_insert_sql = "insert into Course(CourseID, CourseName, RateKnowlCap, RateEnjoy, RateHomework, RateInteract, RateScore, SchoolID)" +
-                " values(" + CourseID + ",'" + CourseName + "'," + 8.0 + "," + 8.0 + "," + 8.0 + "," + 8.0 +
-                "," + 8.0 + "," + SchoolID + ");" ;
+                " values(" + CourseID + ",'" + CourseName + "'," + 0.0 + "," + 0.0 + "," + 0.0 + "," + 0.0 +
+                "," + 0.0 + "," + SchoolID + ");" ;
 
         db.execSQL(str_insert_sql);
     }
