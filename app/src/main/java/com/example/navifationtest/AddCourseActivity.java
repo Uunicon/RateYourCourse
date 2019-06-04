@@ -33,16 +33,20 @@ public class AddCourseActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String addschoolname=editTextSchool.getText().toString();
-                final String addcoursename=editTextSchool.getText().toString();
+                String addschoolname=editTextSchool.getText().toString();
+                String addcoursename=editTextCourse.getText().toString();
                 if(addschoolname.isEmpty()) {
                     Toast.makeText(AddCourseActivity.this, "学校不能为空", Toast.LENGTH_SHORT).show();
                 }
-                if(addcoursename.isEmpty()) {
-                    Toast.makeText(AddCourseActivity.this, "课程不能为空", Toast.LENGTH_SHORT).show();
+                else{
+                    if(addcoursename.isEmpty()) {
+                        Toast.makeText(AddCourseActivity.this, "课程不能为空", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
                 }
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }
