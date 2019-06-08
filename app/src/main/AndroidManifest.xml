@@ -10,14 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ViewTeacherListActivity"
+            android:label="@string/title_activity_view_teacher_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".AddCourseActivity"
             android:label="添加课程"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfessorActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddCommentActivity"
             android:label="课程评价界面"
