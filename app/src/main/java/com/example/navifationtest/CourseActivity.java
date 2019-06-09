@@ -100,6 +100,28 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
+    //----------查询当前课程教师-----------
+    private boolean isTeacherExists(){
+        SQLiteDatabase db = mydbhelper.getWritableDatabase();
+        String CourseName = getIntent().getStringExtra("course");
+        //--------通过课程名获取课程号------
+        Cursor cur = db.query("Course",null,"CourseName=?",new String[]{CourseName},null,null,null);
+        cur.moveToFirst();
+        int CourseID = cur.getInt(cur.getColumnIndex("CourseID"));//通过课程名称获取课程ID
+        cur.close();
+
+        //-------通过课程号搜索Teach（讲授）表中对应的TeacherID（教师号）---
+        //---存在则返回True，否则返回false
+        Cursor _cur = db.query("Teach",null,"CourseID=?",new String[]{CourseID + ""},null,null,null);
+        if(_cur.moveToFirst()){
+            _cur.close();
+            return true;
+        }else{
+            _cur.close();
+            return false;
+        }
+    }
+
     //----------查询相应课程的各项评分----------
     private float[] queryItem(){
         String CourseName = getIntent().getStringExtra("course");
