@@ -100,7 +100,7 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
-    //----------查询当前课程教师-----------
+    //----------查询当前课程教师是否存在-----------
     private boolean isTeacherExists(){
         SQLiteDatabase db = mydbhelper.getWritableDatabase();
         String CourseName = getIntent().getStringExtra("course");
