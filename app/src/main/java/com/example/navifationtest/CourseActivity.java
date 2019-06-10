@@ -66,20 +66,23 @@ public class CourseActivity extends AppCompatActivity {
         professorTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if( 查询 存在授课老师){}
-                Intent viewPorfessorintent1 = new Intent(CourseActivity.this,ProfessorActivity.class);
-                viewPorfessorintent1.putExtra("course",courseName);
-                startActivity(viewPorfessorintent1);
-                //else //不存在授课老师
-//                Snackbar.make(v,"当前课程不存在老师，点击右侧添加老师",Snackbar.LENGTH_LONG).setAction("添加老师",
-//                        new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Intent addcourseintent = new Intent(SearchCourse.this,AddCourseActivity.class);
-//                                addcourseintent.putExtra("schoolName",universityName);
-//                                startActivity(addcourseintent);                                    }
-//                        })
-//                        .show();
+                if(isTeacherExists()){
+                    Intent viewPorfessorintent1 = new Intent(CourseActivity.this,ProfessorActivity.class);
+                    viewPorfessorintent1.putExtra("course",courseName);
+                    startActivity(viewPorfessorintent1);
+                }
+                else {//不存在授课老师
+                    Snackbar.make(v, "当前课程不存在老师，点击右侧添加老师", Snackbar.LENGTH_LONG).setAction("添加老师",
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent viewteacherintent = new Intent(CourseActivity.this, ViewTeacherListActivity.class);
+                                    viewteacherintent.putExtra("courseName", courseName);
+                                    startActivity(viewteacherintent);
+                                }
+                            })
+                            .show();
+                }
             }
         });
         //-------------------
