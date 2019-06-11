@@ -141,7 +141,7 @@ public class AddCommentActivity extends AppCompatActivity {
         db.execSQL("update Course set RateKnowlCap = ?, RateEnjoy = ?, RateHomework = ?, RateInteract = ?, RateScore = ? where CourseID = ?",
                     new String[]{RateOptions[0] + "",RateOptions[1] + "",RateOptions[2] + "",RateOptions[3] + "",RateOptions[4] + "",CourseID + ""});
         update_cur.close();
-        Toast.makeText(this, "结束: "+ CourseID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "添加评价成功", Toast.LENGTH_SHORT).show();
     }
 
 }

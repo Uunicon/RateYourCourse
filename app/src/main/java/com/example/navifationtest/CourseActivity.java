@@ -97,6 +97,7 @@ public class CourseActivity extends AppCompatActivity {
                 Intent addintent = new Intent(CourseActivity.this,AddCommentActivity.class);
                 addintent.putExtra("course",courseName);
                 startActivity(addintent);
+                finish();
             }
         });
 
