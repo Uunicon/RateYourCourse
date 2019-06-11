@@ -33,8 +33,8 @@ public class AddCourseActivity extends AppCompatActivity {
         final EditText editTextCourse = findViewById(R.id.addcoursename);
 
         //----------老师-----------
-        EditText editTextTeacher = findViewById(R.id.addteachername);
-        String addteachername=editTextSchool.getText().toString();
+        final EditText editTextTeacher = findViewById(R.id.addteachername);
+
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -43,6 +43,7 @@ public class AddCourseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String addschoolname=editTextSchool.getText().toString();
                 String addcoursename=editTextCourse.getText().toString();
+                String addteachername=editTextSchool.getText().toString();
                 if(addschoolname.isEmpty()) {
                     Toast.makeText(AddCourseActivity.this, "学校不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -51,7 +52,7 @@ public class AddCourseActivity extends AppCompatActivity {
                         Toast.makeText(AddCourseActivity.this, "课程不能为空", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        insertCourse(addcoursename,addschoolname);
+                        insertCourse(addcoursename,addschoolname,addteachername);
                         Intent intent1 = new Intent(AddCourseActivity.this,CourseActivity.class);
                         intent1.putExtra("course",addcoursename);
                         startActivity(intent1);
@@ -63,7 +64,7 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
     //-----将要添加的课程信息插入数据库中---------
-    private void insertCourse(String CourseName, String SchoolName){
+    private void insertCourse(String CourseName, String SchoolName, String TeacherName){
         //----courseID 自行生成  评分采用默认值，School ID通过School Name查表获取
         SQLiteDatabase db = mydbhelper.getWritableDatabase();
 
@@ -101,6 +102,38 @@ public class AddCourseActivity extends AppCompatActivity {
         }
         SchoolID_cur.close();
 
+        //----------通过School ID 以及 Teacher Name 获取TeacherID
+        Cursor TeacherExist_cur = db.query("Teacher",null,"SchoolID=? and TeacherName=?",new String[]{SchoolID + "", TeacherName},null,null,null);
+        int TeacherID = 1001; //TeacherID 初始化
+        if(TeacherExist_cur.moveToFirst()){
+            //----------存在则直接添加CourseID 与 TeacherID至 Teach表中
+            TeacherID = TeacherExist_cur.getInt(TeacherExist_cur.getColumnIndex("TeacherID"));
+            String TeachInsert_sql = "insert into Teach(TeacherID, CourseID)" + " values(" + TeacherID + ", " + CourseID + ");";
+            db.execSQL(TeachInsert_sql);
+        }else{
+            //不存在则 插入 教师信息至Teacher表，并更新Teach表
+
+            //获取当前插入Teacher表的TeacherID
+            Cursor ReadLastTeacherID_cur = db.query("Teacher",null,null,null,null,null,null);
+            if(ReadLastTeacherID_cur.moveToLast()){
+                TeacherID = ReadLastTeacherID_cur.getInt(ReadLastTeacherID_cur.getColumnIndex("TeacherID"));
+                TeacherID = TeacherID + 1;
+            }else{
+                //TeacherID = 1001;
+            }
+            ReadLastTeacherID_cur.close();
+
+            //插入 教师表 数据
+            String TeacherInsert_sql = "insert into Teacher(TeacherID,TeacherName,JobTitle,SchoolID,CollegeID) values("
+                                        + TeacherID + ",'" + TeacherName + "','Professor'," + SchoolID + ",1001);";
+            db.execSQL(TeacherInsert_sql);
+
+            //插入 讲授表 数据
+            String TeachNew_sql = "insert into Teach(TeacherID, CourseID)" + " values(" + TeacherID + ", " + CourseID + ");";
+            db.execSQL(TeachNew_sql);
+
+        }
+        TeacherExist_cur.close();
         //-------通过获取的信息进行Course表插入操作-------
         String str_insert_sql = "insert into Course(CourseID, CourseName, RateKnowlCap, RateEnjoy, RateHomework, RateInteract, RateScore, SchoolID)" +
                 " values(" + CourseID + ",'" + CourseName + "'," + 0.0 + "," + 0.0 + "," + 0.0 + "," + 0.0 +

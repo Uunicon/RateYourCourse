@@ -22,7 +22,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     //学校表
     static  final String CREATE_TABLE_SCHOOL = "create table if not exists School(SchoolID int primary key not null,SchoolName char(50) not null);";
     //教师表
-    static final String CREATE_TABLE_TEACHER = "create table if not exists Teacher(TeacherID int primary key not null,TeacherName char(50) not null,JobTitle char(50) not null,SchoolID int not null,SchoolName char(50) not null);";
+    static final String CREATE_TABLE_TEACHER = "create table if not exists Teacher(TeacherID int primary key not null,TeacherName char(50) not null,JobTitle char(50) not null,SchoolID int not null,CollegeID int not null);";
     //讲授表
     static final String CREATE_TABLE_TEACH = "create table if not exists Teach(TeacherID int primary key not null, CourseID int not null);";
     //学院表
