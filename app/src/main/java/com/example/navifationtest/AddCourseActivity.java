@@ -43,7 +43,8 @@ public class AddCourseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String addschoolname=editTextSchool.getText().toString();
                 String addcoursename=editTextCourse.getText().toString();
-                String addteachername=editTextSchool.getText().toString();
+                //String addteachername=editTextSchool.getText().toString();
+                String addteachername=editTextTeacher.getText().toString();
                 if(addschoolname.isEmpty()) {
                     Toast.makeText(AddCourseActivity.this, "学校不能为空", Toast.LENGTH_SHORT).show();
                 }
