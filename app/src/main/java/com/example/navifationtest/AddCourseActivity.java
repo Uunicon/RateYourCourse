@@ -24,14 +24,14 @@ public class AddCourseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         final String schoolName = intent.getStringExtra("schoolName");
-
+        final String courseName = intent.getStringExtra("courseName");
         //----------学校-----------
 
         final EditText editTextSchool = findViewById(R.id.addschoolname);
         editTextSchool.setText(schoolName);
         //----------课程-----------
         final EditText editTextCourse = findViewById(R.id.addcoursename);
-
+        editTextCourse.setText(courseName);
         //----------老师-----------
         final EditText editTextTeacher = findViewById(R.id.addteachername);
 

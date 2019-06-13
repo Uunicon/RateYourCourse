@@ -63,7 +63,7 @@ public class SearchCourse extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText editText = findViewById(R.id.edit_Ucourse); //获取输入框
-                String inputText=editText.getText().toString();//输入框内容
+                final String inputText=editText.getText().toString();//输入框内容
                 //queryItem();查询在 Course 表中是否有输入框中的课程
                 if(inputText.isEmpty()){
                     Toast.makeText(SearchCourse.this,"请输入课程名称",Toast.LENGTH_SHORT).show();
@@ -81,6 +81,7 @@ public class SearchCourse extends AppCompatActivity {
                                     public void onClick(View v) {
                                         Intent addcourseintent = new Intent(SearchCourse.this,AddCourseActivity.class);
                                         addcourseintent.putExtra("schoolName",universityName);
+                                        addcourseintent.putExtra("courseName",inputText);
                                         startActivity(addcourseintent);                                    }
                                 })
                                 .show();
